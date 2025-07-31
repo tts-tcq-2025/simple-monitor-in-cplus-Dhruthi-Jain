@@ -2,37 +2,35 @@
 #include <iostream>
 using namespace std;
 
-bool isTemperatureOk(float temp) {
-  if (temp < 0 || temp > 45) {
-    cout << "Temperature out of range! Value: " << temp << "\n";
-    return false;
-  }
-  return true;
+bool batteryIsOk(float x, float y, float z) {
+
+ if (x < 0) {
+        cout << "Temperature LOW! Value: " << x << endl;
+        return false;
+    }
+
+    if (x > 45) {
+        cout << "Temperature HIGH! Value: " << x << endl;
+        return false;
+    }
+
+if (y < 20) {
+        cout << "SOC LOW! Value: " << y << endl;
+        return false;
+    }
+    if (y > 80) {
+        cout << "SOC HIGH! Value: " << y << endl;
+        return false;
+    }
+
+ if (z > 0.8) {
+        cout << "Charge Rate HIGH! Value: " << z << endl;
+        return false;
+    }
+
+    return true;
 }
 
-bool isSocOk(float soc) {
-  if (soc < 20 || soc > 80) {
-    cout << "State of Charge out of range! Value: " << soc << "\n";
-    return false;
-  }
-  return true;
-}
-
-bool isChargeRateOk(float rate) {
-  if (rate > 0.8) {
-    cout << "Charge Rate out of range! Value: " << rate << "\n";
-    return false;
-  }
-  return true;
-}
-
-bool batteryIsOk(float temp, float soc, float rate) {
-  bool tempStatus = isTemperatureOk(temp);
-  bool socStatus = isSocOk(soc);
-  bool rateStatus = isChargeRateOk(rate);
-
-  return tempStatus && socStatus && rateStatus;
-}
 int main() {
   assert(batteryIsOk(25, 70, 0.7) == true);
   assert(batteryIsOk(50, 85, 0) == false);
